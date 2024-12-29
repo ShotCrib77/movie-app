@@ -9,8 +9,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --backgroundNav: #131313;
+    --background: #121212;
+    --container: #1E1E1E;
     --foreground: #ededed;
+    --buttonColor: #FF4500;
   }
 }
 
@@ -18,4 +21,16 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-container {
+  background-color: var(--container);
+}
+
+.bg-nav {
+  background-color: var(--backgroundNav);
+}
+
+.bg-button {
+  background-color: var(--buttonColor);
 }
