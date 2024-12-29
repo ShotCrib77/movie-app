@@ -4,13 +4,13 @@ import StarRating from "../general/StarRating";
 import { useState } from "react";
 
 interface ListItemProps {
-  imageSrc?: string;
   movieName: string;
   movieYear: number;
+  imageSrc?: string;
+  haveWatched?: boolean;
 }
 
-export default function ListItem({imageSrc, movieName, movieYear}: ListItemProps) {
-
+export default function ListItem({imageSrc, movieName, movieYear, haveWatched}: ListItemProps) {
   const [isReadOnly, setIsReadOnly] = useState<boolean>(true);
   const [starSize, setStarSize] = useState<"medium"|"large">("medium");
 
@@ -31,15 +31,18 @@ export default function ListItem({imageSrc, movieName, movieYear}: ListItemProps
           <h2>{movieYear}</h2>
         </div>
       </div>
-
-      <div className="flex flex-col gap-3 items-center">
-        <StarRating isReadOnly={isReadOnly} precision={1} starSize={starSize} />
-        <button 
-          className="bg-button rounded-lg p-1 w-32"
-          onClick={changeIsReadOnly}>
-          {isReadOnly ? ("Change Rating") : ("Confirm")}
-        </button>
-      </div>
+      {haveWatched ? (
+        <div className="flex flex-col gap-3 items-center">
+          <StarRating isReadOnly={isReadOnly} precision={1} starSize={starSize} />
+          <button 
+            className="bg-button rounded-lg p-1 w-32"
+            onClick={changeIsReadOnly}>
+            {isReadOnly ? ("Change Rating") : ("Confirm")}
+          </button>
+        </div>
+      ) : (
+        <h1 className="flex flex-col gap-3 items-center">N/A</h1>
+      )}
     </section>
   );
 }

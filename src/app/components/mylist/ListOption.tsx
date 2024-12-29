@@ -1,23 +1,26 @@
 "use client";
 import { useState } from "react";
 
-export default function ListOptions() {
-  const [activeList, setActiveList] = useState<"Have Watched" | "Watch Later">("Have Watched")
+interface ListOptionProps {
+  activeList: "Have Watched" | "Watch Later";
+  setActiveList: React.Dispatch<React.SetStateAction<"Have Watched" | "Watch Later">>;
+}
 
+export default function ListOptions({activeList, setActiveList}: ListOptionProps) {
   const changeActiveList = () => {
-    setActiveList(activeList === "Have Watched" ? "Watch Later" : "Have Watched")
-  }
+    setActiveList(activeList === "Have Watched" ? "Watch Later" : "Have Watched");
+  };
 
   return (
     <section className="flex w-4/6 ml-4 items-center gap-3">
       <button
-        className={`bg-button rounded text-white p-3 ${activeList === "Have Watched" ? "scale-110" : ""}`}
+        className={`bg-button rounded text-white p-2 ${activeList === "Have Watched" ? "scale-110" : ""}`}
         onClick={changeActiveList}>
         Have Watched
       </button>
 
       <button
-        className={`bg-button rounded text-white p-3 ${activeList === "Watch Later" ? "scale-110" : ""}`}
+        className={`bg-button rounded text-white p-2 ${activeList === "Watch Later" ? "scale-110" : ""}`}
         onClick={changeActiveList}>
         Watch Later
       </button>
