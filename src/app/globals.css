@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -9,8 +21,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --backgroundNav: #131313;
-    --background: #121212;
+    --backgroundNav: #0e0e0e;
+    --background: #141414;
     --container: #1E1E1E;
     --foreground: #ededed;
     --buttonColor: #FF4500;
