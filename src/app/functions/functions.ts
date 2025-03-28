@@ -13,11 +13,16 @@ interface DataObject {
   total_results: number;
 }
 
+interface DataListObject {
+  movies: any[];
+}
+
 interface reformatDataParameter {
   data: DataObject;
 }
 
 interface MovieInfoProps {
+  movieId: number;
   backdropPath: string;
   genresNameList: string[];
   movieTitle: string;
@@ -30,10 +35,20 @@ interface MovieInfoProps {
 }
 
 const reformatDataBrowse = (data: DataObject): CategoryData[] => {
-  console.log("DATA", data)
-  console.log("DATA RES", data.results)
   return (
     data.results.map(movie => ({
+      id: movie.id,
+      posterPath: movie.poster_path,
+      movieTitle: movie.original_title,
+      releaseDate: movie.release_date,
+      voteAverage: movie.vote_average,
+    }))
+  );
+}
+
+const reformatDataLists = (data: DataListObject): CategoryData[] => {
+  return (
+    data.movies.map(movie => ({
       id: movie.id,
       posterPath: movie.poster_path,
       movieTitle: movie.original_title,
@@ -46,6 +61,7 @@ const reformatDataBrowse = (data: DataObject): CategoryData[] => {
 const reformatDataModal = (data: any): MovieInfoProps => {
   return (
     {
+      movieId: data.id,
       backdropPath: data.backdrop_path,
       genresNameList: data.genres.map((genre: any) => genre.name),
       movieTitle: data.original_title,
@@ -61,4 +77,4 @@ const reformatDataModal = (data: any): MovieInfoProps => {
   );
 }
 
-export {reformatDataBrowse, reformatDataModal}
+export { reformatDataBrowse, reformatDataModal, reformatDataLists }

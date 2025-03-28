@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import MovieInfo from "@/app/components/browse/MovieInfo";
-import { getMovieData } from "../../../../server/server";
 import { reformatDataModal } from "@/app/functions/functions";
 
 interface MovieModalProp {
@@ -8,6 +7,7 @@ interface MovieModalProp {
 }
 
 interface MovieInfoProps {
+  movieId: number;
   backdropPath: string;
   genresNameList: string[];
   movieTitle: string;
@@ -28,7 +28,8 @@ export default function MovieModal({ movieId }: MovieModalProp) {
     const fetchMovieData = async () => {
       setLoading(true);
       try {
-        const data: any = await getMovieData(movieId);
+        const res = await fetch(`/api/tmdb/browse?id=${movieId}`);
+        const data = await res.json()
 
         if (!data) {
           setError("Movie not found.");

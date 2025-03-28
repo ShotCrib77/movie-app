@@ -5,6 +5,7 @@ import InfoHeader from "./InfoHeader";
 import TrailerIframe from "./TrailerIframe";
 
 interface MovieInfoProps {
+  movieId: number;
   backdropPath: string;
   genresNameList: string[];
   movieTitle: string;
@@ -16,7 +17,7 @@ interface MovieInfoProps {
   actorsNameList: string[];
 }
 
-export default function MovieInfo({backdropPath, genresNameList, movieTitle, overview, runtime, voteAverage, releaseDate, videoKey, actorsNameList}: MovieInfoProps) {
+export default function MovieInfo({movieId, backdropPath, genresNameList, movieTitle, overview, runtime, voteAverage, releaseDate, videoKey, actorsNameList}: MovieInfoProps) {
 
   // Make it a 0-5 range instead of 0-10 and rounding to the nearest decimal value
   const roundedRating: number = Math.round((voteAverage/2) * 10) / 10;
@@ -25,13 +26,13 @@ export default function MovieInfo({backdropPath, genresNameList, movieTitle, ove
   const releaseYear: string = releaseDate.split("-")[0]
   console.log("Video Key:", videoKey)
 
-  // Reformat runtime to hours and minutes 
+  // Reformat runtime to hours and minutes.
   const runtimeHours = (runtime/60);
   const fullHours = Math.floor(runtimeHours);
   const fullMinutes = Math.round((runtimeHours - fullHours)*60);
   const runtimeReformatted = (fullHours.toString() + "h " + fullMinutes.toString() + "m")
 
-  // Reformat genres list to a string
+  // Reformating genres list to a string
   const genres = genresNameList.map(item => item).join(", ")
 
   return (
@@ -47,8 +48,8 @@ export default function MovieInfo({backdropPath, genresNameList, movieTitle, ove
               <h1 className="font-bold text-2xl md:text-3xl my-2">{movieTitle}</h1>
 
               <div className="flex items-center gap-2 mb-2">
-                <AddToListButton type="Rate"/>
-                <AddToListButton type="Watch Later"/>
+                <AddToListButton type="hw" movieId={movieId} />
+                <AddToListButton type="wl" movieId={movieId} />
               </div>
 
             </div>

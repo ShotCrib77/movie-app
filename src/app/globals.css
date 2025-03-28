@@ -14,19 +14,38 @@
   }
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer components {
+  .loading {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 9999px;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-top-color: transparent;
+    vertical-align: middle;
+  }
+
+  .loading-spinner {
+    border-right-color: transparent;
+    border-left-color: currentColor;
+    border-bottom-color: currentColor;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --backgroundNav: #0e0e0e;
-    --background: #141414;
-    --container: #1E1E1E;
-    --foreground: #ededed;
-    --buttonColor: #FF4500;
-  }
+:root {
+  --backgroundNav: #0e0e0e;
+  --background: #141414;
+  --container: #1E1E1E;
+  --foreground: #ededed;
+  --buttonColor: #FF4500;
 }
 
 body {

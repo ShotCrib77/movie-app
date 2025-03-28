@@ -5,7 +5,7 @@ import CategoryHeader from "../components/general/CategoryHeader";
 import Modal from "../components/general/modal/Modal";
 import MovieModal from "../components/browse/MovieModal";
 import { reformatDataBrowse } from "../functions/functions";
-import { getMoviesDataWithGenreId } from "../../../server/server";
+import { TMDBMovie } from "../lib/Types";
 
 interface CategoryData {
   id: number;
@@ -24,9 +24,8 @@ interface DataObject {
 
 const getAndReformatData = async (genreId: string): Promise<CategoryData[]> => {
     try {
-        const data: DataObject = await getMoviesDataWithGenreId(genreId)
-        console.log("Data: ", data)
-        return ( reformatDataBrowse(data) );
+        const res = await fetch(`/api/tmdb/browse?genreId=${genreId}`);
+        return reformatDataBrowse(await res.json())
     } catch (err) {
         console.error(`Error fetching category ${genreId} browse data`, err)
         return [];
@@ -62,14 +61,13 @@ export default function Browse() {
                     getAndReformatData("12"),
                     getAndReformatData("35"),
                 ]);
-                setDiscoverData(discover)
-                setActionData(action)
-                setDramaData(drama)
+                 setDiscoverData(discover)
+                 setActionData(action)
+                 setDramaData(drama)
             } catch (err) {
                 console.error("Error fetching browse data", err)
                 setError("Failed to load movie data.")
             } finally {
-                console.log(discoverData, actionData, dramaData)
                 setIsLoading(false);
             }
         }

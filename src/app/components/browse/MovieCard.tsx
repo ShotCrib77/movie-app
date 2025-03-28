@@ -1,4 +1,7 @@
+"use client";
+
 import React from 'react';
+import { useState } from 'react';
 
 interface MovieCardProps {
   id: number;
@@ -16,6 +19,8 @@ export default function MovieCard({id, moviePosterSrc, movieTitle, releaseDate, 
   // Make the date only display year
   const releaseYear: string = releaseDate.split("-")[0]
 
+  const [isValidSrc, setIsValidSrc] = useState<boolean>(true);
+
   return (
     <section
       className="relative w-32 h-48 lg:w-64 lg:h-96 overflow-x-scroll cursor-pointer group flex-shrink-0 rounded-md"
@@ -24,6 +29,7 @@ export default function MovieCard({id, moviePosterSrc, movieTitle, releaseDate, 
       <img 
         className="w-full h-full object-cover transition-opacity duration-300 ease-in-out group-hover:opacity-0"
         src={`https://image.tmdb.org/t/p/w500/${moviePosterSrc}`}
+        alt={`Movie poster for ${movieTitle}`}
       />
 
       <div className="absolute rounded-md inset-0 flex flex-col items-center justify-center bg-gray-950 text-white opacity-0 transition-opacity duration 300 ease-in-out group-hover:opacity-100">
