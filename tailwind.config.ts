@@ -1,3 +1,4 @@
+import { SiDaisyui } from "react-icons/si";
 import type { Config } from "tailwindcss";
 
 export default {

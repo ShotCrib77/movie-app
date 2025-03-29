@@ -1,5 +1,5 @@
 import CastList from "./InfoList";
-import AddToListButton from "./AddToListButton";
+import AddToListSection from "./AddToListSection";
 import InfoList from "./InfoList";
 import InfoHeader from "./InfoHeader";
 import TrailerIframe from "./TrailerIframe";
@@ -48,8 +48,8 @@ export default function MovieInfo({movieId, backdropPath, genresNameList, movieT
               <h1 className="font-bold text-2xl md:text-3xl my-2">{movieTitle}</h1>
 
               <div className="flex items-center gap-2 mb-2">
-                <AddToListButton type="hw" movieId={movieId} />
-                <AddToListButton type="wl" movieId={movieId} />
+                <AddToListSection type="hw" movieId={movieId} />
+                <AddToListSection type="wl" movieId={movieId} />
               </div>
 
             </div>

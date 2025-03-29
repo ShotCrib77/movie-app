@@ -6,17 +6,16 @@ import { List } from "postcss/lib/list";
 
 interface ListItemProps {
   listType: "wl" | "hw";
-  priority: "High" | "Medium" | "Low";
-  rating: number;
+  assessment: number;
   posterPath?: string;
   movieTitle: string;
   releaseDate: string;
   movieId: number;
 }
 
-export default function ListItem({listType, priority, rating, posterPath, movieTitle, releaseDate, movieId}: ListItemProps) { 
+export default function ListItem({listType, assessment, posterPath, movieTitle, releaseDate, movieId}: ListItemProps) { 
   const releaseYear: string = releaseDate.split("-")[0]
-  const roundedRating: number = Math.round((rating/2) * 10) / 10;
+  const roundedRating: number = Math.round((assessment) * 10) / 10;
 
   return (
     <section className="bg-slate-800 flex w-9/12 justify-between rounded-md p-3 text-center items-center">
@@ -33,7 +32,7 @@ export default function ListItem({listType, priority, rating, posterPath, movieT
         {listType === "hw" ? (
           <h3 className="text-lg w-1/2">{roundedRating}/5 ⭐</h3>
         ) : (
-          <h3 className="text-lg w-1/2 text-red-800">{priority}</h3>
+          <h3 className="text-lg w-1/2 text-red-800">{roundedRating}/5 📌</h3>
         )}
       </div>
     </section>

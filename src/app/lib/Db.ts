@@ -36,7 +36,7 @@ export class MovieDb extends Db {
     super();
   }
 
-  public async GetMovieIds(userId: number, listType: "hw" | "wl" | "" = ""): Promise<number[]> { // listType => What list the movie is on - "Watch later" or "Have watched"
+  public async GetMovieIds(userId: number, listType: "hw" | "wl" | "" = ""): Promise<{ movieId: number; assessment: number }[]> { // listType => What list the movie is on - "Watch later" or "Have watched"
     try {
       if (!this.dbConnection) throw new Error("Database connection not available");
 
@@ -45,13 +45,17 @@ export class MovieDb extends Db {
         wl: "AND priority IS NOT NULL"
       };
       
-      const queryString = `SELECT movieId FROM userMovies WHERE userId = ? ${conditions[listType] || ""}`;
+      const queryString = `SELECT movieId, rating, priority FROM userMovies WHERE userId = ? ${conditions[listType] || ""}`;
 
       const [rows]: any =  await this.dbConnection?.execute(queryString, [userId]);
+      console.log("rows:", rows);
 
-      return rows.map((row: { movieId: number }) => row.movieId);
-
+      return rows.map((row: { movieId: number; rating: number | null, priority: number | null }) => ({
+        movieId: row.movieId,
+        assessment: row.rating ?? row.priority,
+      }));
     } catch (err) {
+      console.error("Error in GetMovieIds:", err);
       throw new Error("Failed to fetch data")
     }
   }

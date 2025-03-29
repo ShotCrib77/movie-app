@@ -1,8 +1,11 @@
 import { errors } from "@/app/lib/Errors";
 import { NextResponse } from "next/server";
 
+
+
 const API_KEY = process.env.API_KEY;
 const TMDB_PATH = process.env.TMDB_PATH;
+
 
 export async function POST(req: Request) {
   try {
@@ -18,10 +21,12 @@ export async function POST(req: Request) {
         if (!res.ok) {
           throw new Error(`HTTP error for ID ${id}: ${res.status}`);
         }
-        return await res.json();
+
+        const json = await res.json();
+        return json;
       })
     );
-    
+
     return NextResponse.json({ movies: moviesData });
   } catch (error) {
     console.error("Error fetching movie data:", error);

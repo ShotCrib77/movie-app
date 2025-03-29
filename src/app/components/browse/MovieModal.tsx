@@ -55,5 +55,15 @@ export default function MovieModal({ movieId }: MovieModalProp) {
   if (loading) return <div className="center-self">Loading...</div>;
   if (error) return <div className="flex justify-center items-center text-center">{error}</div>;
 
-  return movieData ? <MovieInfo {...movieData} /> : null;
+  return (
+    <>
+      {movieData ? (
+        <MovieInfo {...movieData} />  
+      ) : (
+        null
+      )
+    
+      } 
+  </>
+  );
 }
