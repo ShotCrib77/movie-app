@@ -1,5 +1,6 @@
 import mysql from "mysql2/promise";
 import { errors } from "./Errors";
+import bcrypt from 'bcryptjs';
 
 
 //FIX throw errors
@@ -81,4 +82,52 @@ export class MovieDb extends Db {
       throw new Error("Failed to post to DB")
     }
   }
+
+  public async AddUser(username: string, email: string, password: string) {
+    try {
+      const hashedPassword = await this.hashPassword(password);
+
+      const date = new Date();
+      const sqlDate = date.toISOString().split('T')[0];
+
+      console.log(username, email, sqlDate, hashedPassword)
+
+      const queryString = `INSERT INTO users (username, email, creationDate, password_hash) VALUES (?, ?, ?, ?)`
+
+      await this.dbConnection?.execute(queryString, [username, email, sqlDate, hashedPassword]);
+    } catch(err) {
+      console.error("Error adding new user into the DB", err)
+      throw new Error("Failed to post to DB")
+    }
+  }
+
+  public async VerifyUser(username: string, password: string) {
+    try {
+      //const hashedPassword = await this.hashPassword(password);
+
+      const queryString = `SELECT password_hash, userId FROM users WHERE username = ?`
+
+      const [rows]: any = await this.dbConnection?.execute(queryString, [username]);
+      const passwordHash = rows[0]?.password_hash;
+      const userId = rows[0]?.password_hash;
+
+      console.log("hashedPassword", password, "passwordHash", passwordHash)
+
+      if (password !== passwordHash) {
+        throw new Error("Wrong password or username")
+      }
+
+      return {userId: userId, username: username};
+
+    } catch(err) {
+      console.error("Error logging in", err)
+      throw new Error("Error logging in")
+    }
+  }
+
+  public async hashPassword(password: string) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  };
 }
