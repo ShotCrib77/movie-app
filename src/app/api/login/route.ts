@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
 
     const res = NextResponse.json({ message: "Login successful" }, {status: 200});
 
+    console.log("userID??!?!?", userInfo.userId);
+
     res.cookies.set("userId", userInfo.userId.toString(), {
       httpOnly: true,
       secure: false,

@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import MovieRollerCoaster from "../components/browse/MovieCarousel";
+import MovieRollerCoaster from "../components/home/MovieCarousel";
 import CategoryHeader from "../components/general/CategoryHeader";
 import Modal from "../components/general/modal/Modal";
-import MovieModal from "../components/browse/MovieModal";
+import MovieModal from "../components/home/MovieModal";
 import { reformatDataBrowse } from "../functions/functions";
 import { TMDBMovie } from "../lib/Types";
 

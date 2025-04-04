@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MovieInfo from "@/app/components/browse/MovieInfo";
+import MovieInfo from "@/app/components/home/MovieInfo";
 import { reformatDataModal } from "@/app/functions/functions";
 
 interface MovieModalProp {

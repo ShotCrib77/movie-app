@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function GET() {
   try {
+    const cookieStore = await cookies();
+    cookieStore.delete("userId")
+
     const res = NextResponse.json({message: "Logging out"}, {status: 200});
-    console.log(res.cookies.get("userId"))
     return res;
   } catch (err) {
     NextResponse.json({message: "Error logging out"}, {status: 400});

@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   try {
     await movieDb.Connect();
 
-    const { username, email, password }= await req.json();
+    const { username, email, password } = await req.json();
 
     if (!username || !email || !password  ) {
       return NextResponse.json({ error: errors.input_nan }, { status: 400 });

@@ -103,7 +103,7 @@ export class MovieDb extends Db {
 
   public async VerifyUser(username: string, password: string) {
     try {
-      //const hashedPassword = await this.hashPassword(password);
+      const hashedPassword = await this.hashPassword(password);
 
       const queryString = `SELECT password_hash, userId FROM users WHERE username = ?`
 
@@ -111,9 +111,7 @@ export class MovieDb extends Db {
       const passwordHash = rows[0]?.password_hash;
       const userId = rows[0]?.password_hash;
 
-      console.log("hashedPassword", password, "passwordHash", passwordHash)
-
-      if (password !== passwordHash) {
+      if (hashedPassword !== passwordHash) {
         throw new Error("Wrong password or username")
       }
 
