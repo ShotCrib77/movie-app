@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { use, useState } from "react"
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ export default function LoginPage() {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-
+  const [loginError, setLoginError] = useState(false);
   // Kollar att alla forms är ifyllda
   const isFormValid = () => {
     const { username, password } = formData
@@ -42,7 +42,7 @@ export default function LoginPage() {
     try {
       console.log("Form", formData)
 
-      await fetch("/api/login", {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -50,7 +50,16 @@ export default function LoginPage() {
           password: formData.password
         }),
       })
-      window.location.href = "/browse"; // UseRouter funkar inte pga sidan behöver en page reload för att uppdatera
+      if (res.ok) {
+        setLoginError(false);
+        window.location.href = "/"; // UseRouter funkar inte pga sidan behöver en page reload för att uppdatera
+      } else {
+        setLoginError(true);
+        setFormData({
+          username: "",
+          password: ""
+        });
+      }
     } catch (error) {
       console.error("Login failed:", error)
     } finally {
@@ -114,6 +123,7 @@ export default function LoginPage() {
           >
             {isSubmitting ? "Logging in to account..." : "Login"}
           </button>
+          {loginError ? (<span className="text-red-700 flex justify-center mt-2">Wrong password or username</span> ) : (null)}
         </form>
       </div>
     </div>

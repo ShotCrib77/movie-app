@@ -55,7 +55,7 @@ export default function LoginPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      window.location.href = "/browse";
+      window.location.href = "/login";
     } catch (error) {
       console.error("Register failed:", error);
     } finally {

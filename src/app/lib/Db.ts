@@ -103,15 +103,15 @@ export class MovieDb extends Db {
 
   public async VerifyUser(username: string, password: string) {
     try {
-      const hashedPassword = await this.hashPassword(password);
-
       const queryString = `SELECT password_hash, userId FROM users WHERE username = ?`
 
       const [rows]: any = await this.dbConnection?.execute(queryString, [username]);
       const passwordHash = rows[0]?.password_hash;
-      const userId = rows[0]?.password_hash;
+      const userId = rows[0]?.userId;
 
-      if (hashedPassword !== passwordHash) {
+      const isMatch = await this.comparePasswords(passwordHash, password);
+
+      if (!isMatch) {
         throw new Error("Wrong password or username")
       }
 
@@ -128,4 +128,8 @@ export class MovieDb extends Db {
     const hash = await bcrypt.hash(password, salt);
     return hash;
   };
+
+  public async comparePasswords(storedHash: string, inputPassword: string) {
+     return await bcrypt.compare(inputPassword, storedHash);
+  }
 }

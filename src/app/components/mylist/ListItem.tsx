@@ -32,7 +32,7 @@ export default function ListItem({listType, assessment, posterPath, movieTitle, 
         {listType === "hw" ? (
           <h3 className="text-lg w-1/2">{roundedRating}/5 ⭐</h3>
         ) : (
-          <h3 className="text-lg w-1/2 text-red-800">{roundedRating}/5 📌</h3>
+          <h3 className="text-lg w-1/2">{roundedRating}/5 📌</h3>
         )}
       </div>
     </section>

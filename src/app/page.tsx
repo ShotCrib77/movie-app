@@ -5,7 +5,6 @@ import CategoryHeader from "./components/general/CategoryHeader";
 import Modal from "./components/general/modal/Modal";
 import MovieModal from "./components/home/MovieModal";
 import { reformatDataBrowse } from "./functions/functions";
-import { TMDBMovie } from "./lib/Types";
 
 interface CategoryData {
   id: number;
@@ -16,10 +15,10 @@ interface CategoryData {
 }
 
 interface DataObject {
-    page: number;
-    results: any[];
-    total_pages: number;
-    total_results: number;
+  page: number;
+  results: any[];
+  total_pages: number;
+  total_results: number;
 }
 
 const getAndReformatData = async (genreId: string): Promise<CategoryData[]> => {
@@ -38,7 +37,7 @@ export default function Home() {
 
     const [actionData, setActionData] = useState<CategoryData[] | null>(null);
     const [dramaData, setDramaData] = useState<CategoryData[] | null>(null);
-    const [discoverData, setDiscoverData] = useState<CategoryData[] | null>(null);
+    const [animationData, setAnimationData] = useState<CategoryData[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [error, setError] = useState<string | null>(null);
 
@@ -56,13 +55,13 @@ export default function Home() {
     useEffect(() => {
         const fetchMovieData = async () => {
             try {
-                const [discover, action, drama] = await Promise.all([
+                const [action, animation, drama] = await Promise.all([
                     getAndReformatData("28"),
-                    getAndReformatData("12"),
-                    getAndReformatData("35"),
+                    getAndReformatData("16"),
+                    getAndReformatData("18"),
                 ]);
-                 setDiscoverData(discover)
-                 setActionData(action)
+                  setActionData(action)
+                 setAnimationData(animation)
                  setDramaData(drama)
             } catch (err) {
                 console.error("Error fetching browse data", err)
@@ -79,18 +78,18 @@ export default function Home() {
             {isLoading ? (<p>Loading...</p>) : (
                 <section>
                     <div className="flex flex-col my-5 md:my-8 lg:my-12">
-                        <CategoryHeader categoryName="Trending" />
-                        <MovieCarousel categoryData={discoverData!} openModal={openModal} />
+                        <CategoryHeader categoryName="Action" />
+                        <MovieCarousel categoryData={actionData!} openModal={openModal} />
                     </div>
                     
                     <div className="flex flex-col my-5 md:my-8 lg:my-12">
-                        <CategoryHeader categoryName="Drama" />
-                        <MovieCarousel categoryData={dramaData!} openModal={openModal} />
+                        <CategoryHeader categoryName="Animated" />
+                        <MovieCarousel categoryData={animationData!} openModal={openModal} />
                     </div>
 
                     <div className="flex flex-col my-5 md:my-8 lg:my-12">
-                        <CategoryHeader categoryName="Action" />
-                        <MovieCarousel categoryData={actionData!} openModal={openModal} />
+                        <CategoryHeader categoryName="Drama" />
+                        <MovieCarousel categoryData={dramaData!} openModal={openModal} />
                     </div>
 
                     <Modal isOpen={isModalOpen} handleClose={closeModal}>

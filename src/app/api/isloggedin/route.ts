@@ -8,7 +8,7 @@ export async function GET() {
 
     const userId = cookie.get("userId")
 
-    return NextResponse.json({ isLoggedIn: !!userId }); 
+    return NextResponse.json({ isLoggedIn: !!userId, userId: userId?.value || null }, { status: 200 }); 
   } catch (err) {
     return NextResponse.json({error: errors.fetch_failed}, {status: 400})
   }
