@@ -3,18 +3,24 @@
 import Link from "next/link"
 import { use, useState } from "react"
 
+interface FormData {
+  username: string;
+  password: string;
+}
+
 export default function LoginPage() {
-  const [formData, setFormData] = useState({
+
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     password: ""
   })
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Partial<FormData>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loginError, setLoginError] = useState(false);
   // Kollar att alla forms är ifyllda
   const isFormValid = () => {
     const { username, password } = formData
-    const newErrors = {}
+    const newErrors: Partial<FormData> = {}
     
     // Lägg till fler restraints ? (inga mellanrum på namn och lösenord m.m?)
     if (!username.trim()) newErrors.username = "Username is required"
@@ -24,7 +30,7 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -32,7 +38,7 @@ export default function LoginPage() {
     }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     if (!isFormValid()) return;
@@ -110,10 +116,11 @@ export default function LoginPage() {
           </div>
           
           <Link 
-            className="hover:text-red-600 text-red-500 font-medium flex justify-center mb-6"
-            href="/register"
+            className="hover:text-red-600 text-red-500 font-medium flex  flex-col justify-center mb-6 text-center"
+            href="/createaccount"
           >
-            <span className="text-slate-400">Don"t have an account?</span> &nbsp; Create account
+            <span className="text-slate-400">Don't have an account?</span>
+            Create account
           </Link>
 
           <button

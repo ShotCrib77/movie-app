@@ -146,10 +146,11 @@ export default function LoginPage() {
           </div>
 
           <Link 
-            className="hover:text-red-600 text-red-500 font-medium flex justify-center mb-6"
+            className="hover:text-red-600 text-red-500 font-medium flex flex-col justify-center mb-6 text-center"
             href="/login"
           >
-            <span className="text-slate-400">Already have an account?</span> &nbsp; Login
+            <span className="text-slate-400">Already have an account?</span>
+            Login
           </Link>
 
           <button

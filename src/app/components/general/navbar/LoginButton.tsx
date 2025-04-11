@@ -10,7 +10,7 @@ export default function LoginButton({loggedIn, isLoading, handleLogout }: LoginB
   
   if (isLoading) {
     return (
-      <div className="bg-slate-800 rounded-full px-4 py-2 ml-8 animate-pulse">
+      <div className="bg-slate-800 rounded-full px-4 py-2 xl:ml-8 animate-pulse">
         ...
       </div>
     );
@@ -20,7 +20,7 @@ export default function LoginButton({loggedIn, isLoading, handleLogout }: LoginB
     <>
       {loggedIn ? (
         <button
-          className="bg-slate-800 rounded-full px-4 py-2 hover:bg-slate-900 ml-8"
+          className="bg-slate-800 rounded-full px-4 py-2 hover:bg-slate-900 xl:ml-8"
           onClick={handleLogout}
         >
           Log out
@@ -28,7 +28,7 @@ export default function LoginButton({loggedIn, isLoading, handleLogout }: LoginB
       ) : (
         <Link
           href="/login"
-          className="bg-slate-800 rounded-full px-4 py-2 hover:bg-slate-900 ml-8"
+          className="bg-slate-800 rounded-full px-4 py-2 hover:bg-slate-900 xl:ml-8"
         >
           Log in
         </Link>
