@@ -1,6 +1,6 @@
 import mysql from "mysql2/promise";
 import { errors } from "./Errors";
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 
 //FIX throw errors
@@ -55,6 +55,7 @@ export class MovieDb extends Db {
         movieId: row.movieId,
         assessment: row.rating ?? row.priority,
       }));
+
     } catch (err) {
       console.error("Error in GetMovieIds:", err);
       throw new Error("Failed to fetch data")
@@ -69,13 +70,24 @@ export class MovieDb extends Db {
         hw: "rating",
         wl: "priority"
       };
-
+      
       if (!(listType in conditions)) {
         throw new Error(`Invalid list type: ${listType}`);
       }
+      
+      const currentColumn = conditions[listType];
 
-      const queryString = `INSERT INTO userMovies (userId, movieId, ${conditions[listType]}) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE ${conditions[listType]} = VALUES(${conditions[listType]})`
-
+      const otherColumn = Object.entries(conditions) // Columnen som *inte* motsvarar den för conditions(listType) (så "rating" ifall currentColumn "priority" och "priority" ifall currentColumn är "rating")
+        .find(([key]) => key !== listType)?.[1];
+      
+      const queryString = `
+        INSERT INTO userMovies (userId, movieId, ${currentColumn})
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+          ${currentColumn} = VALUES(${currentColumn})
+          ${otherColumn ? `, ${otherColumn} = NULL` : ""}
+      `; //Ifall man "rate:ar" en film som redan finns i en lista så kommer dens rating uppdateras och listan "bytas".
+      
       await this.dbConnection?.execute(queryString, [userId, movieId, assessment]);
     } catch (err) {
       console.error("DB insert error:", err);
@@ -88,7 +100,7 @@ export class MovieDb extends Db {
       const hashedPassword = await this.hashPassword(password);
 
       const date = new Date();
-      const sqlDate = date.toISOString().split('T')[0];
+      const sqlDate = date.toISOString().split("T")[0];
 
       console.log(username, email, sqlDate, hashedPassword)
 

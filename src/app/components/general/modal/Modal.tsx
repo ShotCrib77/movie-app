@@ -37,9 +37,9 @@ export default function Modal ({children, isOpen, handleClose}: ModalCloseButton
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
       {/*Overlay*/}
-      <div className="fixed top-0 left-0 w-screen h-screen z-40 bg-neutral-800 opacity-50" />
+      <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-neutral-800 opacity-50" />
       
-      <div className="fixed rounded flex flex-col box-border min-w-fit overflow-y-scroll overflow-x-hidden inset-y-0 inset-x-0 z-50">
+      <div className="fixed rounded flex flex-col box-border min-w-fit overflow-y-scroll overflow-x-hidden inset-y-0 inset-x-0 z-50" >
         <div className="mx-auto flex justify-end box-border w-10/12 md:w-10/12 lg:w-8/12 xl:w-6/12 z-50">
           <button
             onClick={handleClose}

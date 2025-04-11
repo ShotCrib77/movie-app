@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: errors.input_nan }, { status: 400 });
     }
 
-    const userInfo = await movieDb.VerifyUser(username, password);
+    const userInfo = await movieDb.VerifyUser(username.toLowerCase(), password);
 
     if (!userInfo) {
       return NextResponse.json({ error: errors.result_null }, { status: 404 });

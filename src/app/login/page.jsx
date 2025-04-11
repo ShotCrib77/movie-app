@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link"
 import { use, useState } from "react"
@@ -111,9 +111,9 @@ export default function LoginPage() {
           
           <Link 
             className="hover:text-red-600 text-red-500 font-medium flex justify-center mb-6"
-            href="/createaccount"
+            href="/register"
           >
-            <span className="text-slate-400">Don't have an account?</span> &nbsp; Create account
+            <span className="text-slate-400">Don"t have an account?</span> &nbsp; Create account
           </Link>
 
           <button
@@ -127,5 +127,5 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
-  )
+  );
 }

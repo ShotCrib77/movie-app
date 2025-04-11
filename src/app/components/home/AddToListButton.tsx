@@ -6,7 +6,7 @@ interface AddToListButtonProp {
 export default function AddToListButton({ type, onClick }: AddToListButtonProp) {
   return (
     <button
-      className="bg-gray-950 rounded-3xl px-4 py-1 w-fit text-sm h-fit flex items-center text-white"
+      className="bg-slate-950 hover:bg-gray-900 mt-3 rounded-3xl px-4 py-1 w-fit text-sm h-fit flex items-center text-white"
       onClick={onClick}
     >
       {type === "wl" ? "Add to Watchlist" : "Rate Movie"}

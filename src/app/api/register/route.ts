@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: errors.input_nan }, { status: 400 });
     }
 
-    await movieDb.AddUser(username, email, password);
+    await movieDb.AddUser(username.toLowerCase(), email.toLowerCase(), password); // Lowercase så att man inte ska behöva ha korrekt casing för användarnamn vid inloggning.
 
     return NextResponse.json({ message: "User added successfully" });
   } catch (err) {

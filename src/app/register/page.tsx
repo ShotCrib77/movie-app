@@ -17,7 +17,7 @@ export default function LoginPage() {
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [dbError, setdbError] = useState(false);
   // Kontrollera att alla formulärfält är ifyllda
   const isFormValid = () => {
     const { username, email, password } = formData;
@@ -50,12 +50,16 @@ export default function LoginPage() {
     try {
       console.log("Form", formData);
 
-      await fetch("/api/register", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      window.location.href = "/login";
+      if (res.ok) {
+        window.location.href = "/login";
+      } else {
+        setdbError(true);
+      }
     } catch (error) {
       console.error("Register failed:", error);
     } finally {
@@ -155,6 +159,7 @@ export default function LoginPage() {
           >
             {isSubmitting ? "Creating account..." : "Create account"}
           </button>
+          {dbError ? (<span className="text-red-600 w-full text-center">Username or email already taken.</span>) : (null)}
         </form>
       </div>
     </div>

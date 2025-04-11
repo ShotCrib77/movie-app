@@ -48,6 +48,7 @@ export default function Home() {
     };
     
     const closeModal = () => {
+        console.log("Triggered closeModal")
         setIsModalOpen(false);
         setSelectedMovieId(null);
     }; 
