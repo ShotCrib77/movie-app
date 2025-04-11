@@ -12,11 +12,11 @@ export abstract class Db {
       throw new Error(errors.already_connected);
     }
 
-    this.dbConnection = await mysql.createConnection({
+    this.dbConnection = await mysql.createConnection({ // ENV
       host: process.env.MOVIE_DB_HOST,
       user: process.env.MOVIE_DB_USER,
       database: process.env.MOVIE_DB_NAME,
-      password: process.env.MOVIE_DB_PASSWORD,
+      password: process.env.MOVIE_DB_PASSWORD      
     });
 
     await this.dbConnection.connect();
