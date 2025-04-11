@@ -4,6 +4,8 @@ USE user_ratings_and_lists;
 CREATE TABLE users (
     userId INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(32) UNIQUE,
+    email VARCHAR(256) UNIQUE,
+    creationDate DATE, 
     password_hash VARCHAR(255) NOT NULL
 );
 
@@ -18,10 +20,13 @@ CREATE TABLE userMovies (
 
 
 # Testing
-
-INSERT INTO users (username, password_hash) VALUES ("Wilmer", "123");
 SELECT  * FROM users;
+/*
+INSERT INTO users (username, email, creationDate, password_hash) VALUES ("Wilmer", "Wilmer.Safsten@gmail.com", "2025-03-31", "123");
 
-INSERT INTO userMovies (userId, movieId, rating) VALUES(1, 4, 3.4);
-SELECT * FROM userMovies;
-SELECT * FROM userMovies WHERE userId = 1 AND priority IS NULL;
+
+INSERT INTO userMovies (userId, movieId, rating) VALUES (1, 18, 4), (1, 134, 4);
+INSERT INTO userMovies (userId, movieId, priority) VALUES (1, 99, 3), (1, 67, 1.8);
+SELECT userId FROM userMovies;
+SELECT * FROM userMovies WHERE userId = 1 AND priority IS NOT NULL;
+*/

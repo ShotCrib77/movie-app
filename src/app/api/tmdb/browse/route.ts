@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     if (id) {
       url = `${TMDB_PATH}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,credits`;
     } else if (genreId) {
-      url = `${TMDB_PATH}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`;
+      url = `${TMDB_PATH}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}&with_original_language=en&include_adult=false&language=en-US`;
       console.log("GENRE url: ", url)
     } else {
       return NextResponse.json({ error: "Missing parameters" }, { status: 400 });

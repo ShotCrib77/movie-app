@@ -31,7 +31,7 @@ export default function LoginButtonWrapper() {
   };
 
   return (
-    <div className="nav-item flex justify-center items-center gap-2 text-md md:text-lg lg:text-xl">
+    <div className="nav-item flex justify-center items-center gap-2 text-md text-xl">
       <LoginButton loggedIn={isLoggedIn} isLoading={isLoading} handleLogout={handleLogout} />
     </div>
   );
