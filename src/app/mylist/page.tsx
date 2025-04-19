@@ -3,33 +3,33 @@
 import { useState } from "react";
 import ListItemsContainer from "../components/mylist/ListItemsContainer";
 import ListOptions from "../components/mylist/ListOption";
-import ListItemHeader from "../components/mylist/ListItemHeader";
-import ListItem from "../components/mylist/ListItem";
 
 export default function Mylist() {
+  const [listType, setListType] = useState<"wl" | "hw">(() => {
+    // Initiera från localstorage eller standardvärde till watch later
+    const savedList = localStorage.getItem("activeList");
+    return savedList === "Have Watched" ? "hw" : "wl";
+  });
 
-  const [activeList, setActiveList] = useState<"Have Watched" | "Watch Later">("Have Watched")
-
-  const changeActiveList = () => {
-    setActiveList(activeList === "Have Watched" ? "Watch Later" : "Have Watched");
+  const changeActiveList = (newList: "Watch Later" | "Have Watched") => {
+    setListType(newList === "Have Watched" ? "hw" : "wl");
+    localStorage.setItem("activeList", newList); // Spara till localstorage
   };
 
   return (
-    <section className="flex flex-col justify-center items-center py-24">
-      <ListOptions activeList={activeList} changeActiveList={changeActiveList}/>
+    <main className="flex flex-col justify-center items-center py-24">
+      <h1></h1>
+      <ListOptions
+        activeList={listType === "hw" ? "Have Watched" : "Watch Later"}
+        changeActiveList={changeActiveList}
+      />
       <div className="flex flex-col gap-2 w-full items-center">
-        {activeList === "Have Watched" ? (
-          <>
-            <ListItemHeader listType="Have Watched"/>
-            <ListItemsContainer listType={"hw"}/>
-          </>
+        {listType === "hw" ? (
+          <ListItemsContainer listType={"hw"} />
         ) : (
-          <>
-            <ListItemHeader listType="Watch Later"/>
-            <ListItemsContainer listType={"wl"}/>
-          </>
+          <ListItemsContainer listType={"wl"} />
         )}
       </div>
-    </section>
+    </main>
   );
 }

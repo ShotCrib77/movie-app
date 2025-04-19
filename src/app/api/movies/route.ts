@@ -65,3 +65,28 @@ export async function POST(req: NextRequest) {
     movieDb.Disconnect();
   }
 }
+
+export async function DELETE(req: NextRequest)  {
+  const movieDb = new MovieDb();
+  try {
+    await movieDb.Connect();
+
+    const body = await req.json();
+    const { userId, movieId } = body;
+
+    if (!userId || !movieId) {
+      return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
+    }
+
+    await movieDb.RemoveMovieId(userId, movieId);
+
+    revalidateTag(`movie-${movieId}`);
+
+    return NextResponse.json({ message: "Movie removed successfully" });
+  } catch (error) {
+    console.error("Error in DELETE /api/movies:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  } finally {
+    movieDb.Disconnect();
+  }
+}

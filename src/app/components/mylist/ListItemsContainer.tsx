@@ -75,7 +75,7 @@ export default function ListItemsContainer({listType}: ListItemsContainerProp) {
           console.log("reformatted", reformatData);
           setReformattedMovieData(reformatData);
         } catch (err) {
-          console.error(`Error fetching movies`, err);
+          console.error("Error fetching movies", err);
           return [];
         } finally {
           setLoading(false);
@@ -85,8 +85,28 @@ export default function ListItemsContainer({listType}: ListItemsContainerProp) {
     getMovies();
   }, [listType])
 
+  const handleRemoveMovie = (movieId: number) => {
+    setReformattedMovieData((prevReformattedMovieData) => {
+      const updatedData = prevReformattedMovieData
+        ? prevReformattedMovieData.filter((movie) => movie.id !== movieId)
+        : null;
+  
+      if (updatedData && updatedData.length === 0) {
+        setMovieIds([]);
+        return null;
+      }
+  
+      return updatedData;
+    });
+  
+    setMovieIds((prevMovieIds) => {
+      const updatedIds = prevMovieIds?.filter((id) => id !== movieId) || [];
+      return updatedIds.length === 0 ? [] : updatedIds;
+    });
+  };
+
   return (
-    <section className="w-full flex flex-col items-center gap-4 justify-center">
+    <section className="flex flex-wrap items-center gap-8 justify-center w-full lg:w-10/12 2xl:w-8/12">
       {loading ? (
         <span className="loading loading-spinner my-12" />
       ) : (
@@ -101,6 +121,7 @@ export default function ListItemsContainer({listType}: ListItemsContainerProp) {
                 movieTitle={movie.movieTitle}
                 releaseDate={movie.releaseDate}
                 assessment={assessmentMap.get(movie.id)!}
+                onRemove={handleRemoveMovie}
               />
             ))
           ) : (

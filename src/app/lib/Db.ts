@@ -12,11 +12,11 @@ export abstract class Db {
       throw new Error(errors.already_connected);
     }
 
-    this.dbConnection = await mysql.createConnection({ // ENV
-      host: process.env.MOVIE_DB_HOST,
-      user: process.env.MOVIE_DB_USER,
-      database: process.env.MOVIE_DB_NAME,
-      password: process.env.MOVIE_DB_PASSWORD      
+    this.dbConnection = await mysql.createConnection({ // ENV no work :(
+      host: "localhost",
+      user: "root",
+      database: "user_ratings_and_lists",
+      password: "password"
     });
 
     await this.dbConnection.connect();
@@ -135,6 +135,20 @@ export class MovieDb extends Db {
     }
   }
 
+  public async RemoveMovieId(userId: number, movieId: number) {
+    try {
+      if (!this.dbConnection) throw new Error("Database connection not available");
+
+      const queryString = `DELETE FROM userMovies WHERE userId = ? AND movieId = ?`;
+
+      await this.dbConnection?.execute(queryString, [userId, movieId]);
+    }
+    catch (err) {
+      console.error("Error removing movieId from DB", err)
+      throw new Error("Failed to remove movieId from DB")
+    }
+  }
+  
   public async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);

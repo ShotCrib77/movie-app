@@ -7,8 +7,8 @@ interface ListItemImageProps {
 
 export default function ListItemImage({posterPath}: ListItemImageProps) {
   return (
-    <div className="flex justify-center w-2/6">
-      {posterPath ? <img className="w-32 h-48 object-contain" src={`https://image.tmdb.org/t/p/w500/${posterPath}`} alt="Movie Poster"/> : (<ImagePlaceholder size={"md"} />)}
+    <div className="flex justify-center">
+      {posterPath ? <img className="w-full object-contain" src={`https://image.tmdb.org/t/p/w500/${posterPath}`} alt="Movie Poster"/> : (<ImagePlaceholder size={"md"} />)}
     </div>
   );
 }

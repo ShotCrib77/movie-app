@@ -117,7 +117,7 @@ export default function LoginPage() {
           
           <Link 
             className="hover:text-red-600 text-red-500 font-medium flex  flex-col justify-center mb-6 text-center"
-            href="/createaccount"
+            href="/register"
           >
             <span className="text-slate-400">Don't have an account?</span>
             Create account
