@@ -15,9 +15,10 @@ interface MovieInfoProps {
   releaseDate: string;
   videoKey: string;
   actorsNameList: string[];
+  closeModal: () => void;
 }
 
-export default function MovieInfo({movieId, backdropPath, genresNameList, movieTitle, overview, runtime, voteAverage, releaseDate, videoKey, actorsNameList}: MovieInfoProps) {
+export default function MovieInfo({movieId, backdropPath, genresNameList, movieTitle, overview, runtime, voteAverage, releaseDate, videoKey, actorsNameList, closeModal}: MovieInfoProps) {
 
   // Make it a 0-5 range instead of 0-10 and rounding to the nearest decimal value
   const roundedRating: number = Math.round((voteAverage/2) * 10) / 10;
@@ -31,12 +32,17 @@ export default function MovieInfo({movieId, backdropPath, genresNameList, movieT
   const fullHours = Math.floor(runtimeHours);
   const fullMinutes = Math.round((runtimeHours - fullHours)*60);
   const runtimeReformatted = (fullHours.toString() + "h " + fullMinutes.toString() + "m")
+  
+  function handleClose(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  }
+  
 
-  // Reformating genres list to a string
-  const genres = genresNameList.map(item => item).join(", ")
 
   return (
-    <section className="flex justify-center my-3">
+    <section className="flex justify-center my-3" onClick={handleClose}>
       <section className="relative flex flex-col justify-center p-6 sm:p-12 w-10/12 md:w-10/12 lg:w-8/12 xl:w-6/12 bg-container rounded-lg">
 
         <TrailerIframe videoKey={videoKey} />

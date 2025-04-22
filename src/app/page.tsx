@@ -48,7 +48,6 @@ export default function Home() {
     };
     
     const closeModal = () => {
-        console.log("Triggered closeModal")
         setIsModalOpen(false);
         setSelectedMovieId(null);
     }; 
@@ -93,8 +92,8 @@ export default function Home() {
                         <MovieCarousel categoryData={dramaData!} openModal={openModal} />
                     </div>
 
-                    <Modal isOpen={isModalOpen} handleClose={closeModal}>
-                        {selectedMovieId && <MovieModal movieId={selectedMovieId} />}
+                    <Modal isOpen={isModalOpen} handleClose={closeModal} >
+                        {selectedMovieId && <MovieModal movieId={selectedMovieId} closeModal={closeModal} />}
                     </Modal>
                 </main>
             )}

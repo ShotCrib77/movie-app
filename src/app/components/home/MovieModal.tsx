@@ -4,6 +4,7 @@ import { reformatDataModal } from "@/app/functions/functions";
 
 interface MovieModalProp {
   movieId: number;
+  closeModal: () => void;
 }
 
 interface MovieInfoProps {
@@ -19,7 +20,7 @@ interface MovieInfoProps {
   actorsNameList: string[];
 }
 
-export default function MovieModal({ movieId }: MovieModalProp) {
+export default function MovieModal({ movieId, closeModal }: MovieModalProp) {
   const [movieData, setMovieData] = useState<MovieInfoProps | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -58,7 +59,7 @@ export default function MovieModal({ movieId }: MovieModalProp) {
   return (
     <>
       {movieData ? (
-        <MovieInfo {...movieData} />  
+        <MovieInfo {...movieData} closeModal={closeModal} />  
       ) : (
         null
       )
