@@ -77,7 +77,7 @@ export default function Home() {
     return (
         <>
             {isLoading ? (<p>Loading...</p>) : (
-                <section>
+                <main>
                     <div className="flex flex-col my-5 md:my-8 lg:my-12">
                         <CategoryHeader categoryName="Action" />
                         <MovieCarousel categoryData={actionData!} openModal={openModal} />
@@ -96,7 +96,7 @@ export default function Home() {
                     <Modal isOpen={isModalOpen} handleClose={closeModal}>
                         {selectedMovieId && <MovieModal movieId={selectedMovieId} />}
                     </Modal>
-                </section>
+                </main>
             )}
         </>
     );

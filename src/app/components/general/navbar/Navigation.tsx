@@ -67,17 +67,17 @@ export default function Navigation() {
   
         {/*Mobil*/}
         <div className={`fixed bg-nav z-50 right-0 top-20 bottom-0 pt-8 w-full md:w-3/6 lg:w-2/6 bg-navbar flex flex-col gap-4 items-center overflow-hidden xl:hidden text-xl ${isOpen ? (isAnimating ? "animate-slideOut" : "animate-slideIn") : "hidden"}`}>
-          <LoginButtonWrapper />
+          <LoginButtonWrapper toggleNavMenu={toggleNavMenu}/>
           <div>
-            <Link href="/" className={`nav-item flex justify-center items-center ${pathname === "/" ? "font-extrabold" : ""}`}>
+            <Link href="/" className={`nav-item flex justify-center items-center ${pathname === "/" ? "font-extrabold" : ""}`} onClick={toggleNavMenu} >
               Home
             </Link>
             
-            <Link href="/mylist" className={`nav-item flex justify-center items-center ${pathname === "/mylist" ? "font-extrabold" : ""}`}>
+            <Link href="/mylist" className={`nav-item flex justify-center items-center ${pathname === "/mylist" ? "font-extrabold" : ""}`} onClick={toggleNavMenu} >
               My List
             </Link>
 
-            <Link href="/search" className={`nav-item flex justify-center items-center gap-2 ${pathname === "/search" ? "font-extrabold" : ""}`}>
+            <Link href="/search" className={`nav-item flex justify-center items-center gap-2 ${pathname === "/search" ? "font-extrabold" : ""}`} onClick={toggleNavMenu} >
               Search <FaSearch />
             </Link>
           </div>

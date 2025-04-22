@@ -69,7 +69,7 @@ const reformatDataModal = (data: any): MovieInfoProps => {
       runtime: data.runtime,
       voteAverage: data.vote_average,
       releaseDate: data.release_date,
-      videoKey: data.videos?.results[0]?.key || "",
+      videoKey: data.trailer?.key,
       actorsNameList: data.credits?.cast
         .filter((actor: any) => actor.known_for_department === "Acting")
         .map((actor: any) => actor.name) || [],

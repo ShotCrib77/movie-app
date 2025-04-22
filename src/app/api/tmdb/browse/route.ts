@@ -27,7 +27,19 @@ export async function GET(req: Request) {
     }
 
     const json = await res.json();
-    return NextResponse.json(json);
+
+    const trailers = json.videos?.results?.filter(
+      (video: any) =>
+        video.type === "Trailer" &&
+        video.site === "YouTube"
+    );
+    const trailer = trailers?.[0] || null;
+  
+    return NextResponse.json({
+      ...json,
+      trailer,
+    })
+
   } catch (error) {
     console.error("Error fetching movie data:", error);
     return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });

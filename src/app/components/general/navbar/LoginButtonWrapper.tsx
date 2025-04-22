@@ -2,7 +2,11 @@
 import { useState, useEffect } from "react";
 import LoginButton from "./LoginButton";
 
-export default function LoginButtonWrapper() {
+interface LoginButtonWrapperProps {
+  toggleNavMenu?: () => void;
+}
+
+export default function LoginButtonWrapper({ toggleNavMenu }: LoginButtonWrapperProps) {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -31,7 +35,7 @@ export default function LoginButtonWrapper() {
   };
 
   return (
-    <div className="nav-item flex justify-center items-center gap-2 text-md text-xl">
+    <div className="nav-item flex justify-center items-center gap-2 text-md text-xl"  onClick={toggleNavMenu}>
       <LoginButton loggedIn={isLoggedIn} isLoading={isLoading} handleLogout={handleLogout} />
     </div>
   );
