@@ -2,20 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .loading {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 9999px;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-top-color: transparent;
+    vertical-align: middle;
   }
+
+  .loading-spinner {
+    border-right-color: transparent;
+    border-left-color: currentColor;
+    border-bottom-color: currentColor;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+:root {
+  --backgroundNav: #0e0e0e;
+  --background: #141414;
+  --container: #1E1E1E;
+  --foreground: #ededed;
+  --buttonColor: #FF4500;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.bg-container {
+  background-color: var(--container);
+}
+
+.bg-nav {
+  background-color: var(--backgroundNav);
+}
+
+.bg-button {
+  background-color: var(--buttonColor);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.center-self {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
