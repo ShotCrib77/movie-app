@@ -49,8 +49,8 @@ export default function Navigation() {
 
       <nav className="xl:w-3/6 flex items-center">
         {/*Desktop*/}
-        <div className="hidden xl:flex justify-around w-5/6">
-          <Link href="/" className={`nav-item flex justify-center items-center text-md md:text-lg lg:text-xl ${pathname === "/" ? "font-extrabold" : ""}`}>
+        <div className="hidden xl:flex justify-around w-5/6" >
+          <Link href="/" className={`nav-item flex justify-center items-center text-md md:text-lg lg:text-xl ${pathname === "/" ? "font-extrabold" : ""}`} tabIndex={0}>
             Home
           </Link>
           

@@ -22,9 +22,15 @@ export default function MovieCard({id, moviePosterSrc, movieTitle, releaseDate, 
   const [isValidSrc, setIsValidSrc] = useState<boolean>(true);
 
   return (
-    <section
-      className="relative w-32 h-48 lg:w-64 lg:h-96 overflow-x-scroll cursor-pointer group flex-shrink-0 rounded-md"
+    <div
+      className="relative w-32 h-48 lg:w-64 lg:h-96 overflow-x-hidden cursor-pointer group flex-shrink-0 rounded-md"
       onClick={() => onClick(id)}
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick(id);
+        }
+      }}
     >
       <img 
         className="w-full h-full object-cover transition-opacity duration-300 ease-in-out group-hover:opacity-0"
@@ -38,6 +44,6 @@ export default function MovieCard({id, moviePosterSrc, movieTitle, releaseDate, 
         <span>{roundedRating}/5 ⭐</span>
       </div>
 
-    </section>
+    </div>
   );
 }
