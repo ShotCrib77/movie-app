@@ -6,6 +6,7 @@ interface ArrowButtonProps {
 export default function ArrowButton({direction, scrollFunc}: ArrowButtonProps) {
   return (
     <button
+    aria-label={`${direction} arrow button`}
     onClick={scrollFunc}
     className={`absolute z-10 h-10 w-10 flex items-center justify-center rounded-full shadow hover:scale-110 transition ${direction === "left" ? "left-1" : direction === "right" ? "right-1": ""}`}
   >

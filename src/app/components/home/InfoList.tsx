@@ -19,7 +19,7 @@ export default function InfoList({itemList, itemType}: CastListProp) {
   return (
     <div>
       <span className="text-sm">
-        <span className="text-gray-500">{itemType}:</span> {displayedItems.join(", ")}
+        <span className="text-gray-400">{itemType}:</span> {displayedItems.join(", ")}
       </span> {" "}
       {itemList.length > 4 ? (
       <button
